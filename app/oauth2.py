@@ -1,5 +1,4 @@
-import os
-from dotenv import load_dotenv
+from .config import settings
 from jose import JWTError,jwt
 from datetime import datetime,timedelta,timezone
 from fastapi import Depends,status,HTTPException
@@ -10,10 +9,9 @@ from . import schemas,database,models
 
 oauth2_scheme = OAuth2PasswordBearer(tokenUrl="login")
 
-load_dotenv()
-SECRET_KEY = os.environ["SECRET_KEY"]
-ALGORITHM = os.environ["ALGORITHM"]
-ACCESS_TOKEN_EXPIRE_MINUTES = int(os.environ["ACCESS_TOKEN_EXPIRE_MINUTES"])
+SECRET_KEY = settings.SECRET_KEY
+ALGORITHM = settings.ALGORITHM
+ACCESS_TOKEN_EXPIRE_MINUTES = settings.ACCESS_TOKEN_EXPIRE_MINUTES
 
 def create_access_token(data:dict):
     to_encode=data.copy()
