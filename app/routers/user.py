@@ -1,5 +1,5 @@
 from .. import schemas,models,utils
-from fastapi import FastAPI,Response,status,HTTPException,Depends,APIRouter
+from fastapi import status,HTTPException,Depends,APIRouter
 from sqlalchemy.orm import Session
 from sqlalchemy import select
 from ..database import get_db

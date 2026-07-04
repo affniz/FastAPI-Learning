@@ -1,5 +1,6 @@
 from .database import Base
-from sqlalchemy.orm import Mapped,mapped_column
+from sqlalchemy.orm import Mapped,mapped_column,relationship
+from sqlalchemy import ForeignKey
 from datetime import datetime
 from sqlalchemy import DateTime, func
 
@@ -15,6 +16,9 @@ class Post(Base):
     server_default=func.now(),
     nullable=False
     )
+    owner_id: Mapped[int] = mapped_column(ForeignKey("users.id", ondelete="CASCADE"),nullable=False)
+
+    owner = relationship("User")
     
 class User(Base):
     __tablename__='users'
