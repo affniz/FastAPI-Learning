@@ -1,5 +1,6 @@
-from pydantic import BaseModel,ConfigDict,EmailStr
+from pydantic import BaseModel,ConfigDict,EmailStr,RootModel
 from datetime import datetime
+from typing import Literal
 
 class PostBase(BaseModel):
     title:str
@@ -9,11 +10,21 @@ class PostBase(BaseModel):
 class PostCreate(PostBase):
     pass
 
-class PostResponse(PostBase):
+class Post(PostBase):
     id:int
     created_at:datetime
+    owner_id:int
     owner:UserOut
     model_config = ConfigDict(from_attributes=True)
+
+class PostOut(BaseModel):
+    Post: Post
+    votes: int
+
+    model_config = ConfigDict(from_attributes=True)
+
+# class PostOut(RootModel[tuple[PostResponse, int]]):
+#     pass
 
 class UserCreate(BaseModel):
     email: EmailStr
@@ -31,3 +42,7 @@ class Token(BaseModel):
 
 class TokenData(BaseModel):
     id: int|None
+
+class Vote(BaseModel):
+    post_id:int
+    dir:Literal[0, 1]
