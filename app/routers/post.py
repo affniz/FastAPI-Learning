@@ -42,8 +42,6 @@ def get_post(id:int,response:Response,db:Session=Depends(get_db),current_user:sc
         raise HTTPException(status_code=status.HTTP_404_NOT_FOUND,detail= f"Post with ID : {id} not found")
     return one_post
 
-
-#one_post=db.execute(select(models.Post).where(models.Post.id==id)).scalar_one_or_none()
 @router.post("/",status_code=status.HTTP_201_CREATED,response_model=schemas.Post)
 def create_posts(post:schemas.PostCreate,db:Session=Depends(get_db),current_user:schemas.UserOut=Depends(oauth2.get_current_user)):
 
