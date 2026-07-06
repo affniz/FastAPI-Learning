@@ -23,8 +23,6 @@ class PostOut(BaseModel):
 
     model_config = ConfigDict(from_attributes=True)
 
-# class PostOut(RootModel[tuple[PostResponse, int]]):
-#     pass
 
 class UserCreate(BaseModel):
     email: EmailStr
