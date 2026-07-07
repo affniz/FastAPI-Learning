@@ -24,6 +24,7 @@ class PostOut(BaseModel):
     model_config = ConfigDict(from_attributes=True)
 
 
+
 class UserCreate(BaseModel):
     email: EmailStr
     password: str
